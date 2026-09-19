@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Hud from "@/components/Hud";
 import { Section } from "@/components/Section";
+import KineticGrid from "@/components/ui/kinetic-grid";
 import { achievements, projects, skills, timeline } from "@/data/portfolio";
 
 const fade = { initial: { opacity: 0, y: 26 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: .2 }, transition: { duration: .7 } };
@@ -32,7 +33,7 @@ export default function Home() {
         <motion.div className="ambassador-panel" {...fade} transition={{ delay: .15 }}><div><span>// CAMPUS ALLIANCES</span><h3>CAMPUS AMBASSADOR</h3><p>Building connections between ambitious students and the technology community.</p></div><div className="ambassador-orgs"><article><b>KREO</b><span>CAMPUS AMBASSADOR</span><strong>2025</strong></article><article><b>SOLULAB</b><span>CAMPUS AMBASSADOR</span><strong>2026</strong></article></div></motion.div>
       </Section>
       <Section id="skills" kicker="02 / ABILITY MAP" title="SKILL TREE">
-        <div className="skill-layout"><motion.div className="skill-map" {...fade}>{skills.map((branch, i) => <div className="skill-branch" key={branch.group}><div className="branch-label"><b>{branch.icon}</b>{branch.group}</div><div className="nodes">{branch.nodes.map(([name, desc]) => <button key={name} onMouseEnter={() => setActiveSkill(desc)} onFocus={() => setActiveSkill(desc)} onClick={() => setActiveSkill(desc)}>{name}</button>)}</div></div>)}</motion.div><aside className="inspector"><span>NODE INSPECTOR</span><div className="reticle">⌾</div><p>{activeSkill}</p><small>HOVER TO SCAN</small></aside></div>
+        <KineticGrid className="kinetic-skill-grid"><div className="skill-layout"><motion.div className="skill-map" {...fade}>{skills.map((branch) => <div className="skill-branch" key={branch.group}><div className="branch-label"><b>{branch.icon}</b>{branch.group}</div><div className="nodes">{branch.nodes.map(([name, desc]) => <button key={name} onMouseEnter={() => setActiveSkill(desc)} onFocus={() => setActiveSkill(desc)} onClick={() => setActiveSkill(desc)}>{name}</button>)}</div></div>)}</motion.div><aside className="inspector"><span>NODE INSPECTOR</span><div className="reticle">⌾</div><p>{activeSkill}</p><small>HOVER OR CLICK TO SCAN</small></aside></div></KineticGrid>
       </Section>
       <Section id="projects" kicker="03 / BUILDING INDEX" title="PROJECT DISTRICT">
         <div className="projects">{projects.map((project, i) => <motion.article className={`project ${project.color}`} key={project.name} {...fade} transition={{ delay: i * .12 }}><div className="building"><span>PROJECT<br />{project.code}</span><i /><i /><i /></div><div className="project-body"><small>DEPLOYED CONCEPT // {project.code}</small><h3>{project.name}</h3><p>{project.desc}</p>{project.contribution && <p className="contribution">{project.contribution}</p>}<div className="chips">{project.tech.map(t => <span key={t}>{t}</span>)}</div><div className="project-links"><a href={project.github ?? "#contact"} target={project.github ? "_blank" : undefined} rel={project.github ? "noreferrer" : undefined}>GITHUB ↗</a><a href={project.demo ?? "#contact"} target={project.demo ? "_blank" : undefined} rel={project.demo ? "noreferrer" : undefined}>DEMO ↗</a></div></div></motion.article>)}</div>
