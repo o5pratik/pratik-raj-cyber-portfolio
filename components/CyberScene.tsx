@@ -70,6 +70,22 @@ function Rain() {
   return <points ref={rain}><bufferGeometry><bufferAttribute attach="attributes-position" args={[positions, 3]} /></bufferGeometry><pointsMaterial color="#95efff" size={.025} transparent opacity={.78} sizeAttenuation /></points>;
 }
 
+function CitySignals() {
+  const signals = useRef<THREE.Group>(null);
+  useFrame((state) => {
+    signals.current?.children.forEach((signal, index) => {
+      signal.rotation.z = Math.sin(state.clock.elapsedTime * 1.1 + index) * .06;
+      signal.position.y = 1.2 + (index % 3) * .9 + Math.sin(state.clock.elapsedTime * 1.5 + index) * .14;
+    });
+  });
+  return <group ref={signals}>
+    {Array.from({ length: 9 }, (_, index) => <group key={index} position={[((index % 5) - 2) * 2.5, 1.2 + (index % 3) * .9, -6 - Math.floor(index / 5) * 5]}>
+      <mesh><planeGeometry args={[.55, .22]} /><meshBasicMaterial color={index % 2 ? "#00d9ff" : "#a65cff"} transparent opacity={.82} /></mesh>
+      <mesh position={[0, 0, -.01]}><planeGeometry args={[.9, .03]} /><meshBasicMaterial color="#ffffff" transparent opacity={.4} /></mesh>
+    </group>)}
+  </group>;
+}
+
 function CameraDrift() {
   const { camera, pointer } = useThree();
   useFrame(() => {
@@ -87,7 +103,7 @@ function World() {
     <pointLight color="#00d9ff" intensity={20} position={[0, 3, 3]} distance={15} />
     <pointLight color="#7c3aed" intensity={17} position={[-7, 2, -5]} distance={16} />
     <pointLight color="#ffd700" intensity={4} position={[5, 1, -10]} distance={8} />
-    <Rain /><Traffic /><CyberCity /><CameraDrift />
+    <Rain /><Traffic /><CitySignals /><CyberCity /><CameraDrift />
   </>;
 }
 
