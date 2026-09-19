@@ -4,111 +4,92 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
-function CyberCity() {
-  const city = useRef<THREE.Group>(null);
-  const buildings = useMemo(() => Array.from({ length: 94 }, (_, index) => {
-    const row = Math.floor(index / 16);
-    return {
-      x: ((index % 16) - 7.5) * 1.25 + (row % 2) * .25,
-      z: -row * 2.1 - 2.5,
-      height: 1.7 + ((index * 13) % 11) * .48,
-      width: .55 + (index % 3) * .18,
-      violet: index % 7 === 0,
-    };
-  }), []);
+type Building = { side: -1 | 1; z: number; height: number; depth: number; width: number; color: string };
 
-  useFrame((state) => {
-    if (city.current) city.current.position.x = Math.sin(state.clock.elapsedTime * .12) * .24;
-  });
-
-  return <group ref={city} position={[0, -2.9, 0]}>
-    {buildings.map((building, index) => <group key={index} position={[building.x, building.height / 2, building.z]}>
-      <mesh>
-        <boxGeometry args={[building.width, building.height, .75]} />
-        <meshStandardMaterial color={building.violet ? "#190737" : "#03151d"} emissive={building.violet ? "#4d08a8" : "#006478"} emissiveIntensity={.95} metalness={.88} roughness={.28} />
-      </mesh>
-      <mesh position={[0, 0, .381]}>
-        <planeGeometry args={[building.width * .7, building.height * .72]} />
-        <meshBasicMaterial color={building.violet ? "#c27cff" : "#35eeff"} transparent opacity={.25} />
-      </mesh>
-    </group>)}
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.04, -10]}>
-      <planeGeometry args={[35, 35]} /><meshStandardMaterial color="#02080d" metalness={.85} roughness={.32} />
+function BuildingFacade({ building, index }: { building: Building; index: number }) {
+  const face = building.side === -1 ? 1 : -1;
+  const neon = index % 3 === 0 ? "#bb52ff" : "#00d9ff";
+  const windows = Array.from({ length: Math.max(4, Math.floor(building.height * 1.35)) });
+  return <group position={[building.side * (3.25 + building.depth / 2), building.height / 2 - 2.65, building.z]}>
+    <mesh><boxGeometry args={[building.depth, building.height, building.width]} /><meshStandardMaterial color={building.color} metalness={.8} roughness={.35} /></mesh>
+    <mesh rotation={[0, face * Math.PI / 2, 0]} position={[face * building.depth / 2 + face * .012, 0, 0]}>
+      <planeGeometry args={[building.width * .88, building.height * .9]} /><meshBasicMaterial color="#061a25" />
     </mesh>
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -9]}>
-      <planeGeometry args={[3.1, 35]} /><meshBasicMaterial color="#071c26" transparent opacity={.8} />
-    </mesh>
+    {windows.map((_, windowIndex) => <mesh key={windowIndex} rotation={[0, face * Math.PI / 2, 0]} position={[face * building.depth / 2 + face * .024, -building.height * .31 + windowIndex * .47, (windowIndex % 2 ? -.22 : .22) * building.width]}>
+      <planeGeometry args={[.2, .2]} /><meshBasicMaterial color={windowIndex % 5 === 0 ? "#d967ff" : "#2beeff"} transparent opacity={.55 + (windowIndex % 3) * .12} />
+    </mesh>)}
+    {index % 2 === 0 && <group position={[face * (building.depth / 2 + .045), .35, 0]} rotation={[0, face * Math.PI / 2, 0]}>
+      <mesh><planeGeometry args={[building.width * .58, .45]} /><meshBasicMaterial color={neon} transparent opacity={.85} /></mesh>
+      <mesh position={[0, 0, .01]}><planeGeometry args={[building.width * .38, .045]} /><meshBasicMaterial color="#ffffff" /></mesh>
+    </group>}
   </group>;
 }
 
-function Traffic() {
-  const lights = useRef<THREE.Group>(null);
-  useFrame((state) => {
-    lights.current?.children.forEach((light, index) => {
-      light.position.z = -3 - ((state.clock.elapsedTime * (2.8 + index % 3) + index * 3.6) % 25);
-    });
-  });
-  return <group ref={lights} position={[0, -2.77, 0]}>
-    {Array.from({ length: 14 }, (_, index) => <mesh key={index} position={[(index % 2 ? -.82 : .82), 0, -3 - index * 1.8]}>
-      <boxGeometry args={[.075, .035, .75]} /><meshBasicMaterial color={index % 3 ? "#00d9ff" : "#b258ff"} />
-    </mesh>)}
+function CityStreet() {
+  const buildings = useMemo<Building[]>(() => Array.from({ length: 22 }, (_, index) => {
+    const side: -1 | 1 = index % 2 ? 1 : -1;
+    return { side, z: -3 - Math.floor(index / 2) * 2.55, height: 3.2 + (index * 7 % 11) * .48, depth: 1.1 + (index % 3) * .18, width: 1.65 + (index % 4) * .23, color: index % 4 === 0 ? "#16062e" : "#061820" };
+  }), []);
+  return <group>
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2.68, -15]}><planeGeometry args={[5.6, 48]} /><meshStandardMaterial color="#06131c" metalness={.9} roughness={.28} /></mesh>
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2.665, -15]}><planeGeometry args={[.055, 48]} /><meshBasicMaterial color="#00d9ff" transparent opacity={.8} /></mesh>
+    {[-2.95, 2.95].map(x => <mesh key={x} rotation={[-Math.PI / 2, 0, 0]} position={[x, -2.65, -15]}><planeGeometry args={[.6, 48]} /><meshStandardMaterial color="#10121c" metalness={.7} /></mesh>)}
+    {buildings.map((building, index) => <BuildingFacade key={index} building={building} index={index} />)}
   </group>;
+}
+
+function HoverTraffic() {
+  const traffic = useRef<THREE.Group>(null);
+  useFrame((state) => traffic.current?.children.forEach((car, index) => {
+    car.position.z = -2 - ((state.clock.elapsedTime * (4.2 + index % 3) + index * 7) % 37);
+    car.position.y = -1.65 + Math.sin(state.clock.elapsedTime * 2 + index) * .045;
+  }));
+  return <group ref={traffic}>
+    {Array.from({ length: 10 }, (_, index) => <group key={index} position={[index % 2 ? -1.08 : 1.08, -1.65, -4 - index * 3.2]}>
+      <mesh><boxGeometry args={[.42, .12, .78]} /><meshStandardMaterial color="#07101b" emissive={index % 3 ? "#00b8d4" : "#8626d8"} emissiveIntensity={2.3} metalness={.95} /></mesh>
+      <mesh position={[0, 0, .42]}><boxGeometry args={[.32, .04, .04]} /><meshBasicMaterial color="#dcfbff" /></mesh>
+      <pointLight color={index % 3 ? "#00d9ff" : "#b454ff"} intensity={3.5} distance={2.2} />
+    </group>)}
+  </group>;
+}
+
+function StreetLamps() {
+  return <group>{Array.from({ length: 16 }, (_, index) => {
+    const side = index % 2 ? -1 : 1;
+    return <group key={index} position={[side * 2.7, -2.55, -3 - Math.floor(index / 2) * 3.3]}>
+      <mesh position={[0, .95, 0]}><cylinderGeometry args={[.025, .035, 1.9, 6]} /><meshStandardMaterial color="#1a3440" metalness={.9} /></mesh>
+      <mesh position={[-side * .24, 1.84, 0]}><boxGeometry args={[.5, .025, .025]} /><meshBasicMaterial color="#2a677d" /></mesh>
+      <pointLight color="#4beeff" intensity={4} distance={3} position={[-side * .48, 1.78, 0]} />
+    </group>;
+  })}</group>;
 }
 
 function Rain() {
   const rain = useRef<THREE.Points>(null);
   const positions = useMemo(() => {
-    const values = new Float32Array(2600 * 3);
-    for (let index = 0; index < values.length; index += 3) {
-      values[index] = (Math.random() - .5) * 30;
-      values[index + 1] = Math.random() * 15 - 3;
-      values[index + 2] = -Math.random() * 33;
-    }
+    const values = new Float32Array(3200 * 3);
+    for (let index = 0; index < values.length; index += 3) { values[index] = (Math.random() - .5) * 16; values[index + 1] = Math.random() * 13 - 3; values[index + 2] = -Math.random() * 40; }
     return values;
   }, []);
-  useFrame((state) => { if (rain.current) rain.current.position.y = -((state.clock.elapsedTime * .8) % 1.5); });
-  return <points ref={rain}><bufferGeometry><bufferAttribute attach="attributes-position" args={[positions, 3]} /></bufferGeometry><pointsMaterial color="#95efff" size={.025} transparent opacity={.78} sizeAttenuation /></points>;
-}
-
-function CitySignals() {
-  const signals = useRef<THREE.Group>(null);
-  useFrame((state) => {
-    signals.current?.children.forEach((signal, index) => {
-      signal.rotation.z = Math.sin(state.clock.elapsedTime * 1.1 + index) * .06;
-      signal.position.y = 1.2 + (index % 3) * .9 + Math.sin(state.clock.elapsedTime * 1.5 + index) * .14;
-    });
-  });
-  return <group ref={signals}>
-    {Array.from({ length: 9 }, (_, index) => <group key={index} position={[((index % 5) - 2) * 2.5, 1.2 + (index % 3) * .9, -6 - Math.floor(index / 5) * 5]}>
-      <mesh><planeGeometry args={[.55, .22]} /><meshBasicMaterial color={index % 2 ? "#00d9ff" : "#a65cff"} transparent opacity={.82} /></mesh>
-      <mesh position={[0, 0, -.01]}><planeGeometry args={[.9, .03]} /><meshBasicMaterial color="#ffffff" transparent opacity={.4} /></mesh>
-    </group>)}
-  </group>;
+  useFrame((state) => { if (rain.current) rain.current.position.y = -((state.clock.elapsedTime * 1.25) % 1.8); });
+  return <points ref={rain}><bufferGeometry><bufferAttribute attach="attributes-position" args={[positions, 3]} /></bufferGeometry><pointsMaterial color="#b6f7ff" size={.027} transparent opacity={.72} sizeAttenuation /></points>;
 }
 
 function CameraDrift() {
   const { camera, pointer } = useThree();
-  useFrame(() => {
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, pointer.x * .7, .025);
-    camera.position.y = THREE.MathUtils.lerp(camera.position.y, 1.25 + pointer.y * .28, .025);
-    camera.lookAt(0, -.25, -10);
+  useFrame((state) => {
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, pointer.x * .42, .022);
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, .5 + pointer.y * .18, .022);
+    camera.position.z = 8 + Math.sin(state.clock.elapsedTime * .16) * .13;
+    camera.lookAt(0, -.15, -12);
   });
   return null;
 }
 
 function World() {
-  return <>
-    <ambientLight intensity={.23} />
-    <hemisphereLight color="#4beaff" groundColor="#030307" intensity={.45} />
-    <pointLight color="#00d9ff" intensity={20} position={[0, 3, 3]} distance={15} />
-    <pointLight color="#7c3aed" intensity={17} position={[-7, 2, -5]} distance={16} />
-    <pointLight color="#ffd700" intensity={4} position={[5, 1, -10]} distance={8} />
-    <Rain /><Traffic /><CitySignals /><CyberCity /><CameraDrift />
-  </>;
+  return <><ambientLight intensity={.22} /><hemisphereLight color="#55eaff" groundColor="#010105" intensity={.42} /><pointLight color="#00d9ff" intensity={16} position={[0, 3, 2]} distance={17} /><pointLight color="#8d35e8" intensity={16} position={[-5, 3, -9]} distance={14} /><Rain /><StreetLamps /><HoverTraffic /><CityStreet /><CameraDrift /></>;
 }
 
 export default function CyberScene() {
-  return <div className="scene" aria-hidden="true"><Canvas camera={{ position: [0, 1.25, 10], fov: 56 }} dpr={[1, 1.5]}>
-    <color attach="background" args={["#02050a"]} /><fog attach="fog" args={["#02050a", 7, 27]} /><World />
-  </Canvas></div>;
+  return <div className="scene" aria-hidden="true"><Canvas camera={{ position: [0, .5, 8], fov: 62 }} dpr={[1, 1.5]}><color attach="background" args={["#02050a"]} /><fog attach="fog" args={["#02050a", 7, 30]} /><World /></Canvas></div>;
 }
