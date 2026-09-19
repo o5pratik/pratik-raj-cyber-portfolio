@@ -1,12 +1,10 @@
 "use client";
-import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Hud from "@/components/Hud";
 import { Section } from "@/components/Section";
 import { achievements, projects, skills, timeline } from "@/data/portfolio";
-const CyberScene = dynamic(() => import("@/components/CyberScene"), { ssr: false });
 
 const fade = { initial: { opacity: 0, y: 26 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: .2 }, transition: { duration: .7 } };
 export default function Home() {
@@ -15,14 +13,16 @@ export default function Home() {
   const { scrollY } = useScroll(); const skyShift = useTransform(scrollY, [0, 900], [0, 180]);
   useEffect(() => { if (bootLine.current) gsap.fromTo(bootLine.current, { scaleX: 0, transformOrigin: "left" }, { scaleX: 1, duration: 1.35, ease: "power3.out" }); }, []);
   return <main id="top" className={started ? "started" : ""}>
-    <motion.div className="grid-floor" style={{ y: skyShift }} /><div ref={bootLine} className="boot-line" /><CyberScene />
+    <motion.div className="grid-floor" style={{ y: skyShift }} /><div ref={bootLine} className="boot-line" />
     <Hud />
     <section className="hero">
+      <div className="hero-city" aria-hidden="true" /><div className="hero-rain" aria-hidden="true" /><img className="hero-character" src="/images/cyber-engineer.png" alt="" aria-hidden="true" />
       <div className="hero-eyebrow">// PLAYER ONE IDENTIFIED <b>◉</b></div>
       <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .9 }}>PRATIK<span>RAJ</span></motion.h1>
       <motion.div className="hero-roles" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .55 }}>ENGINEERING STUDENT <i /> SOFTWARE DEVELOPER <i /> CONTENT CREATOR</motion.div>
-      <p>Welcome to the command interface of an engineering student and software developer who builds practical digital experiences.</p>
+      <p>Step into my neon city: a digital world where code, curiosity, and ambition become real experiences.</p>
       <button className="start" onClick={() => { setStarted(true); document.querySelector("#profile")?.scrollIntoView({ behavior: "smooth" }); }}>START EXPERIENCE <span>→</span></button>
+      <div className="hero-signal"><span>NEON CITY // 2099</span><b>01</b><i>ENGINEER ONLINE</i></div>
       <div className="hero-meta"><span>SECTOR // INDIA</span><span>BUILD 2026.08</span><span>STATUS // OPEN TO QUESTS</span></div>
     </section>
     <div className="content">
