@@ -1,10 +1,13 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Hud from "@/components/Hud";
 import { Section } from "@/components/Section";
 import { achievements, projects, skills, timeline } from "@/data/portfolio";
+
+const CyberScene = dynamic(() => import("@/components/CyberScene"), { ssr: false });
 
 const fade = { initial: { opacity: 0, y: 26 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: .2 }, transition: { duration: .7 } };
 export default function Home() {
@@ -17,7 +20,7 @@ export default function Home() {
     <motion.div className="grid-floor" style={{ y: skyShift }} /><div ref={bootLine} className="boot-line" />
     <Hud />
     <section className="hero">
-      <img className="hero-city" src={`${assetBase}/images/cyber-city-hero.png`} alt="" aria-hidden="true" /><div className="hero-rain" aria-hidden="true" /><img className="hero-character" src={`${assetBase}/images/cyber-engineer.png`} alt="" aria-hidden="true" />
+      <CyberScene /><div className="hero-rain" aria-hidden="true" /><img className="hero-character" src={`${assetBase}/images/cyber-engineer.png`} alt="" aria-hidden="true" />
       <div className="hero-eyebrow">// PLAYER ONE IDENTIFIED <b>◉</b></div>
       <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .9 }}>PRATIK<span>RAJ</span></motion.h1>
       <motion.div className="hero-roles" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .55 }}>ENGINEERING STUDENT <i /> SOFTWARE DEVELOPER <i /> CONTENT CREATOR</motion.div>
@@ -29,6 +32,7 @@ export default function Home() {
     <div className="content">
       <Section id="profile" kicker="01 / PLAYER PROFILE" title="COMMAND CENTER">
         <motion.div className="profile-grid" {...fade}><div className="avatar"><div className="avatar-face">PR</div><span>AVATAR LOADING</span><em>◈</em></div><div className="profile-copy"><div className="role-tag">LEVEL 02 // ENGINEER</div><h3>Pratik Raj<span>Engineering student and software developer.</span></h3><p>I turn complex ideas into practical digital products through software engineering and app development.</p><div className="xp"><div><span>EXPERIENCE POINTS</span><b>680 / 1000 XP</b></div><i><em /></i><small>NEXT CLASS UNLOCK: PRODUCT ENGINEER</small></div></div><div className="stat-stack">{[["CLASS", "SOFTWARE DEVELOPER"], ["FOCUS", "APP DEVELOPMENT"], ["HOBBY", "CONTENT CREATION"]].map(([a,b]) => <div key={a}><small>{a}</small><strong>{b}</strong></div>)}</div></motion.div>
+        <motion.div className="ambassador-panel" {...fade} transition={{ delay: .15 }}><div><span>// CAMPUS ALLIANCES</span><h3>CAMPUS AMBASSADOR</h3><p>Building connections between ambitious students and the technology community.</p></div><div className="ambassador-orgs"><article><b>KREO</b><span>CAMPUS AMBASSADOR</span><strong>2025</strong></article><article><b>SOLULAB</b><span>CAMPUS AMBASSADOR</span><strong>2026</strong></article></div></motion.div>
       </Section>
       <Section id="skills" kicker="02 / ABILITY MAP" title="SKILL TREE">
         <div className="skill-layout"><motion.div className="skill-map" {...fade}>{skills.map((branch, i) => <div className="skill-branch" key={branch.group}><div className="branch-label"><b>{branch.icon}</b>{branch.group}</div><div className="nodes">{branch.nodes.map(([name, desc]) => <button key={name} onMouseEnter={() => setActiveSkill(desc)} onFocus={() => setActiveSkill(desc)} onClick={() => setActiveSkill(desc)}>{name}</button>)}</div></div>)}</motion.div><aside className="inspector"><span>NODE INSPECTOR</span><div className="reticle">⌾</div><p>{activeSkill}</p><small>HOVER TO SCAN</small></aside></div>

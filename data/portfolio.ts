@@ -30,4 +30,4 @@ export const projects = [
 ];
 
 export const achievements = ["Engineering Projects", "Development Journey", "Creator Milestones", "Arduino Systems", "App Development"];
-export const timeline = [["2025", "Started Content Creation", "Entered the creator arena."], ["2026", "Built Engineering Projects", "Turned theory into working systems."], ["2026", "Started App Development", "Expanded into mobile-first products."], ["2026", "Built Personal Brand", "Merged technology with storytelling."]];
+export const timeline = [["2025", "Kreo Campus Ambassador", "Began representing Kreo and connecting with the campus community."], ["2025", "Started Content Creation", "Entered the creator arena."], ["2026", "SoluLab Campus Ambassador", "Began representing SoluLab and its technology community."], ["2026", "Built Engineering Projects", "Turned theory into working systems."], ["2026", "Started App Development", "Expanded into mobile-first products."], ["2026", "Built Personal Brand", "Merged technology with storytelling."]];
