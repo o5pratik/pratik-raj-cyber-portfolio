@@ -44,7 +44,7 @@ export default function Home() {
       <Section id="timeline" kicker="06 / MISSION HISTORY" title="THE PATH FORWARD">
         <div className="timeline">{timeline.map(([year, title, desc], i) => <motion.div className="time" key={title} {...fade} transition={{ delay: i * .12 }}><div className="time-dot"><i /></div><div className="time-year">{year}</div><h3>{title}</h3><p>{desc}</p></motion.div>)}</div>
       </Section>
-      <section id="contact" className="portal"><div className="portal-ring" /><div className="portal-copy"><span>// FINAL TRANSMISSION</span><h2>READY FOR THE<br />NEXT <em>QUEST?</em></h2><p>Let’s build a future-facing project that deserves to be remembered.</p><div className="portal-actions"><a className="primary" href="#">DOWNLOAD RESUME ↓</a><a href="#">GITHUB ↗</a><a href="#">INSTAGRAM ↗</a><a href="#">LINKEDIN ↗</a><a href="mailto:hello@pratikraj.dev">CONTACT ME ↗</a></div></div></section>
+      <section id="contact" className="portal"><div className="portal-ring" /><div className="portal-copy"><span>// FINAL TRANSMISSION</span><h2>READY FOR THE<br />NEXT <em>QUEST?</em></h2><p>Let’s build a future-facing project that deserves to be remembered.</p><div className="portal-actions"><a className="primary" href="mailto:prarik23raj@gmail.com">CONTACT ME ↗</a><a href="https://github.com/o5pratik" target="_blank" rel="noreferrer">GITHUB ↗</a><a href="https://www.instagram.com/o5_pratik" target="_blank" rel="noreferrer">INSTAGRAM ↗</a><a href="https://www.linkedin.com/in/pratik-raj-1330b8376" target="_blank" rel="noreferrer">LINKEDIN ↗</a><a href="mailto:prarik23raj@gmail.com">prarik23raj@gmail.com</a></div></div></section>
       <footer>PRATIK RAJ // DIGITAL UNIVERSE <span>© 2026</span></footer>
     </div>
   </main>;

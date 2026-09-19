@@ -19,6 +19,15 @@ export const projects = [
     github: "https://github.com/o5pratik/ai-dbms-virtual-mentor",
     demo: "https://apexdb-mentor-team-apex.pratik02raj.chatgpt.site/",
   },
+  {
+    name: "VeriSwarm",
+    code: "05",
+    desc: "An autonomous multi-drone swarm simulation exploring coordinated flight, spatial awareness, and intelligent mission workflows.",
+    contribution: "A systems-focused simulation project built to investigate reliable swarm behavior in complex environments.",
+    tech: ["DRONE SWARM", "SIMULATION", "AUTONOMY", "UE5"],
+    color: "blue",
+    github: "https://github.com/o5pratik",
+  },
 ];
 
 export const achievements = ["Engineering Projects", "Development Journey", "Creator Milestones", "Arduino Systems", "App Development"];
