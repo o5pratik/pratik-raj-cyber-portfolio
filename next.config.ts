@@ -6,5 +6,6 @@ const nextConfig: NextConfig = {
   output: "export",
   basePath: isGitHubPages ? "/pratik-raj-cyber-portfolio" : "",
   assetPrefix: isGitHubPages ? "/pratik-raj-cyber-portfolio/" : undefined,
+  env: { NEXT_PUBLIC_ASSET_PREFIX: isGitHubPages ? "/pratik-raj-cyber-portfolio" : "" },
 };
 export default nextConfig;
