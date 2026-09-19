@@ -27,7 +27,6 @@ export const projects = [
   },
   { name: "Smart Signal", code: "03", desc: "Arduino-powered traffic automation designed to bring responsive logic to city flow.", tech: ["ARDUINO", "IOT", "AUTOMATION"], color: "gold" },
   { name: "Syncro", code: "04", desc: "A frictionless file-sharing app that makes device-to-device collaboration feel instant.", tech: ["MOBILE", "SYNC", "PRODUCT"], color: "purple" },
-  { name: "XShare", code: "05", desc: "Zero-trust file sharing application built around privacy, speed and confident handoffs.", tech: ["SECURE", "WEB APP", "ZERO TRUST"], color: "blue" },
 ];
 
 export const achievements = ["Engineering Projects", "Development Journey", "Creator Milestones", "Arduino Systems", "App Development"];
