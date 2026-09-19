@@ -1,17 +1,15 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
-import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Hud from "@/components/Hud";
 import { Section } from "@/components/Section";
 import { achievements, projects, skills, timeline } from "@/data/portfolio";
 
-const CyberScene = dynamic(() => import("@/components/CyberScene"), { ssr: false });
-
 const fade = { initial: { opacity: 0, y: 26 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: .2 }, transition: { duration: .7 } };
 export default function Home() {
   const [started, setStarted] = useState(false); const [activeSkill, setActiveSkill] = useState("Select a node to inspect capability data."); const [showEmail, setShowEmail] = useState(false);
+  const assetBase = process.env.NEXT_PUBLIC_ASSET_PREFIX ?? "";
   const bootLine = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll(); const skyShift = useTransform(scrollY, [0, 900], [0, 180]);
   useEffect(() => { if (bootLine.current) gsap.fromTo(bootLine.current, { scaleX: 0, transformOrigin: "left" }, { scaleX: 1, duration: 1.35, ease: "power3.out" }); }, []);
@@ -19,7 +17,7 @@ export default function Home() {
     <motion.div className="grid-floor" style={{ y: skyShift }} /><div ref={bootLine} className="boot-line" />
     <Hud />
     <section className="hero">
-      <CyberScene /><div className="hero-rain" aria-hidden="true" />
+      <video className="hero-video" autoPlay loop muted playsInline preload="metadata" aria-hidden="true"><source src={`${assetBase}/videos/cyber-city-loop.mp4`} type="video/mp4" /></video><div className="hero-rain" aria-hidden="true" />
       <div className="hero-eyebrow">// PLAYER ONE IDENTIFIED <b>◉</b></div>
       <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .9 }}>PRATIK<span>RAJ</span></motion.h1>
       <motion.div className="hero-roles" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .55 }}>ENGINEERING STUDENT <i /> SOFTWARE DEVELOPER <i /> CONTENT CREATOR</motion.div>
