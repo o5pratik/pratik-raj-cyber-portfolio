@@ -17,7 +17,7 @@ export default function Home() {
     <motion.div className="grid-floor" style={{ y: skyShift }} /><div ref={bootLine} className="boot-line" />
     <Hud />
     <section className="hero">
-      <div className="hero-city" style={{ backgroundImage: `linear-gradient(90deg,rgba(2,5,10,.98) 0%,rgba(2,5,10,.76) 36%,rgba(2,5,10,.16) 72%,rgba(2,5,10,.62)),url('${assetBase}/images/cyber-city-hero.png')` }} aria-hidden="true" /><div className="hero-rain" aria-hidden="true" /><img className="hero-character" src={`${assetBase}/images/cyber-engineer.png`} alt="" aria-hidden="true" />
+      <img className="hero-city" src={`${assetBase}/images/cyber-city-hero.png`} alt="" aria-hidden="true" /><div className="hero-rain" aria-hidden="true" /><img className="hero-character" src={`${assetBase}/images/cyber-engineer.png`} alt="" aria-hidden="true" />
       <div className="hero-eyebrow">// PLAYER ONE IDENTIFIED <b>◉</b></div>
       <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .9 }}>PRATIK<span>RAJ</span></motion.h1>
       <motion.div className="hero-roles" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .55 }}>ENGINEERING STUDENT <i /> SOFTWARE DEVELOPER <i /> CONTENT CREATOR</motion.div>
