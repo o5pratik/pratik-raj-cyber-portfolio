@@ -1,0 +1,15 @@
+# Dependencies and build output
+node_modules/
+.next/
+out/
+tsconfig.tsbuildinfo
+
+# Local tooling and caches
+.npm-cache/
+.env*
+!.env.example
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
