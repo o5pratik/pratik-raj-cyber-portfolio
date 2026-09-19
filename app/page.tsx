@@ -10,7 +10,7 @@ const CyberScene = dynamic(() => import("@/components/CyberScene"), { ssr: false
 
 const fade = { initial: { opacity: 0, y: 26 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: .2 }, transition: { duration: .7 } };
 export default function Home() {
-  const [started, setStarted] = useState(false); const [activeSkill, setActiveSkill] = useState("Select a node to inspect capability data.");
+  const [started, setStarted] = useState(false); const [activeSkill, setActiveSkill] = useState("Select a node to inspect capability data."); const [showEmail, setShowEmail] = useState(false);
   const bootLine = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll(); const skyShift = useTransform(scrollY, [0, 900], [0, 180]);
   useEffect(() => { if (bootLine.current) gsap.fromTo(bootLine.current, { scaleX: 0, transformOrigin: "left" }, { scaleX: 1, duration: 1.35, ease: "power3.out" }); }, []);
@@ -44,7 +44,7 @@ export default function Home() {
       <Section id="timeline" kicker="06 / MISSION HISTORY" title="THE PATH FORWARD">
         <div className="timeline">{timeline.map(([year, title, desc], i) => <motion.div className="time" key={title} {...fade} transition={{ delay: i * .12 }}><div className="time-dot"><i /></div><div className="time-year">{year}</div><h3>{title}</h3><p>{desc}</p></motion.div>)}</div>
       </Section>
-      <section id="contact" className="portal"><div className="portal-ring" /><div className="portal-copy"><span>// FINAL TRANSMISSION</span><h2>READY FOR THE<br />NEXT <em>QUEST?</em></h2><p>Let’s build a future-facing project that deserves to be remembered.</p><div className="portal-actions"><a className="primary" href="mailto:prarik23raj@gmail.com" aria-label="Email Pratik Raj">CONTACT ME ↗</a><a href="https://github.com/o5pratik" target="_blank" rel="noreferrer">GITHUB ↗</a><a href="https://www.instagram.com/o5_pratik" target="_blank" rel="noreferrer">INSTAGRAM ↗</a><a href="https://www.linkedin.com/in/pratik-raj-1330b8376" target="_blank" rel="noreferrer">LINKEDIN ↗</a></div></div></section>
+      <section id="contact" className="portal"><div className="portal-ring" /><div className="portal-copy"><span>// FINAL TRANSMISSION</span><h2>READY FOR THE<br />NEXT <em>QUEST?</em></h2><p>Let’s build a future-facing project that deserves to be remembered.</p><div className="portal-actions"><button className="primary" onClick={() => setShowEmail(value => !value)} aria-expanded={showEmail}>CONTACT ME ↗</button><a href="https://github.com/o5pratik" target="_blank" rel="noreferrer">GITHUB ↗</a><a href="https://www.instagram.com/o5_pratik" target="_blank" rel="noreferrer">INSTAGRAM ↗</a><a href="https://www.linkedin.com/in/pratik-raj-1330b8376" target="_blank" rel="noreferrer">LINKEDIN ↗</a></div>{showEmail && <div className="contact-reveal" role="status"><span>EMAIL CHANNEL OPEN</span><a href="mailto:prarik23raj@gmail.com">prarik23raj@gmail.com</a></div>}</div></section>
       <footer>PRATIK RAJ // DIGITAL UNIVERSE <span>© 2026</span></footer>
     </div>
   </main>;

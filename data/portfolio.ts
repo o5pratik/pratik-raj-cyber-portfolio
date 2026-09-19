@@ -6,12 +6,18 @@ export const skills = [
 ];
 
 export const projects = [
-  { name: "XShare", code: "01", desc: "Zero-trust file sharing application built around privacy, speed and confident handoffs.", tech: ["SECURE", "WEB APP", "ZERO TRUST"], color: "blue" },
-  { name: "Syncro", code: "02", desc: "A frictionless file-sharing app that makes device-to-device collaboration feel instant.", tech: ["MOBILE", "SYNC", "PRODUCT"], color: "purple" },
-  { name: "Smart Signal", code: "03", desc: "Arduino-powered traffic automation designed to bring responsive logic to city flow.", tech: ["ARDUINO", "IOT", "AUTOMATION"], color: "gold" },
+  {
+    name: "VeriSwarm",
+    code: "01",
+    desc: "An autonomous multi-drone swarm simulation exploring coordinated flight, spatial awareness, and intelligent mission workflows.",
+    contribution: "A systems-focused simulation project built to investigate reliable swarm behavior in complex environments.",
+    tech: ["DRONE SWARM", "SIMULATION", "AUTONOMY", "UE5"],
+    color: "blue",
+    github: "https://github.com/o5pratik",
+  },
   {
     name: "ApexDB Mentor",
-    code: "04",
+    code: "02",
     desc: "Built an AI-assisted SQL learning workspace with executable SQLite programs, live query results, and automatically generated ER diagrams.",
     contribution: "Team Apex · I contributed to building the interactive SQL-learning experience alongside Aarnav Jain.",
     tech: ["REACT", "SQLITE", "MONACO", "CLOUDFLARE"],
@@ -19,15 +25,9 @@ export const projects = [
     github: "https://github.com/o5pratik/ai-dbms-virtual-mentor",
     demo: "https://apexdb-mentor-team-apex.pratik02raj.chatgpt.site/",
   },
-  {
-    name: "VeriSwarm",
-    code: "05",
-    desc: "An autonomous multi-drone swarm simulation exploring coordinated flight, spatial awareness, and intelligent mission workflows.",
-    contribution: "A systems-focused simulation project built to investigate reliable swarm behavior in complex environments.",
-    tech: ["DRONE SWARM", "SIMULATION", "AUTONOMY", "UE5"],
-    color: "blue",
-    github: "https://github.com/o5pratik",
-  },
+  { name: "Smart Signal", code: "03", desc: "Arduino-powered traffic automation designed to bring responsive logic to city flow.", tech: ["ARDUINO", "IOT", "AUTOMATION"], color: "gold" },
+  { name: "Syncro", code: "04", desc: "A frictionless file-sharing app that makes device-to-device collaboration feel instant.", tech: ["MOBILE", "SYNC", "PRODUCT"], color: "purple" },
+  { name: "XShare", code: "05", desc: "Zero-trust file sharing application built around privacy, speed and confident handoffs.", tech: ["SECURE", "WEB APP", "ZERO TRUST"], color: "blue" },
 ];
 
 export const achievements = ["Engineering Projects", "Development Journey", "Creator Milestones", "Arduino Systems", "App Development"];
