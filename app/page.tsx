@@ -15,10 +15,11 @@ export default function Home() {
   const { scrollY } = useScroll(); const skyShift = useTransform(scrollY, [0, 900], [0, 180]);
   useEffect(() => { if (bootLine.current) gsap.fromTo(bootLine.current, { scaleX: 0, transformOrigin: "left" }, { scaleX: 1, duration: 1.35, ease: "power3.out" }); }, []);
   return <main id="top" className={started ? "started" : ""}>
+    <img className="site-video-fallback" src={`${assetBase}/images/cyber-city-hero.png`} alt="" aria-hidden="true" /><video className="site-video" autoPlay loop muted playsInline preload="metadata" aria-hidden="true"><source src={`${assetBase}/videos/cyber-city-loop.mp4`} type="video/mp4" /></video>
     <motion.div className="grid-floor" style={{ y: skyShift }} /><div ref={bootLine} className="boot-line" />
     <Hud />
     <section className="hero">
-      <img className="hero-video-fallback" src={`${assetBase}/images/cyber-city-hero.png`} alt="" aria-hidden="true" /><video className="hero-video" autoPlay loop muted playsInline preload="metadata" aria-hidden="true"><source src={`${assetBase}/videos/cyber-city-loop.mp4`} type="video/mp4" /></video><div className="hero-rain" aria-hidden="true" />
+      <div className="hero-rain" aria-hidden="true" />
       <div className="hero-eyebrow">// PLAYER ONE IDENTIFIED <b>◉</b></div>
       <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .9 }}>PRATIK<span>RAJ</span></motion.h1>
       <motion.div className="hero-roles" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .55 }}>ENGINEERING STUDENT <i /> SOFTWARE DEVELOPER <i /> CONTENT CREATOR</motion.div>
