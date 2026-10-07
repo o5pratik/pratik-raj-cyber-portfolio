@@ -9,11 +9,11 @@ export const projects = [
   {
     name: "VeriSwarm",
     code: "01",
-    desc: "An autonomous multi-drone swarm simulation exploring coordinated flight, spatial awareness, and intelligent mission workflows.",
-    contribution: "A systems-focused simulation project built to investigate reliable swarm behavior in complex environments.",
-    tech: ["DRONE SWARM", "SIMULATION", "AUTONOMY", "UE5"],
+    desc: "Flood-rescue drone simulation work within the SIH 26177 VeriSwarm team project.",
+    contribution: "My documented work covers the Unreal flood environment, five-drone formation, rooftop landing, and movement integration. Evidence and limits are in the repository.",
+    tech: ["UNREAL", "DRONE SIMULATION", "PYTHON"],
     color: "blue",
-    github: "https://github.com/o5pratik",
+    github: "https://github.com/o5pratik/veriswarm-drone-simulation",
   },
   {
     name: "ApexDB Mentor",
@@ -26,7 +26,7 @@ export const projects = [
     demo: "https://apexdb-mentor-team-apex.pratik02raj.chatgpt.site/",
   },
   { name: "Smart Signal", code: "03", desc: "Arduino-powered traffic automation designed to bring responsive logic to city flow.", tech: ["ARDUINO", "IOT", "AUTOMATION"], color: "gold" },
-  { name: "Syncro", code: "04", desc: "A frictionless file-sharing app that makes device-to-device collaboration feel instant.", tech: ["MOBILE", "SYNC", "PRODUCT"], color: "purple" },
+  { name: "Syncro", code: "04", desc: "An Android prototype exploring local file transfer with a file picker and TCP sender and receiver.", tech: ["ANDROID", "KOTLIN", "LOCAL NETWORK"], color: "purple", github: "https://github.com/o5pratik/Syncro-SecureFileSharing" },
 ];
 
 export const achievements = ["Engineering Projects", "Development Journey", "Creator Milestones", "Arduino Systems", "App Development"];
