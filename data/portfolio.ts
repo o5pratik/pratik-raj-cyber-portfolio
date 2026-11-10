@@ -18,7 +18,7 @@ export const projects = [
   {
     name: "ApexDB Mentor",
     code: "02",
-    desc: "Built an AI-assisted SQL learning workspace with executable SQLite programs, live query results, and automatically generated ER diagrams.",
+    desc: "An interactive SQL learning workspace with executable SQLite programs, live query results, and automatically generated ER diagrams.",
     contribution: "Team Apex · I contributed to building the interactive SQL-learning experience alongside Aarnav Jain.",
     tech: ["REACT", "SQLITE", "MONACO", "CLOUDFLARE"],
     color: "purple",
